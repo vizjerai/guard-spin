@@ -28,7 +28,7 @@ module Guard
       end
 
       def run_all
-        run('spec')
+        run(['spec'])
       end
 
       private
