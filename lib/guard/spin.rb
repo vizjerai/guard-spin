@@ -22,6 +22,10 @@ module Guard
       runner.launch_spin("Reload")
     end
 
+    def run_all
+      runner.run_all
+    end
+
     def run_on_change(paths)
       runner.run(paths)
     end

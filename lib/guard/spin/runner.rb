@@ -27,6 +27,10 @@ module Guard
         system "spin push #{paths.join(" ")}"
       end
 
+      def run_all
+        run('spec')
+      end
+
       private
 
       def start_spin
