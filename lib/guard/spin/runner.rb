@@ -19,7 +19,6 @@ module Guard
       end
 
       def kill_spin
-        UI.info "Killing Spin", :reset => true
         stop_spin
       end
 
@@ -40,6 +39,7 @@ module Guard
           socket = UNIXSocket.open(file)
           if socket
             socket.close
+            UI.info "Spin Stopped", :reset => true
           end
           File.delete(file)
         end
