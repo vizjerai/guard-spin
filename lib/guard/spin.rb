@@ -14,12 +14,12 @@ module Guard
 
     def start
       runner.kill_spin
-      runner.launch_spin("start")
+      runner.launch_spin("Start")
     end
 
     def reload
       runner.kill_spin
-      runner.launch_spin("reload")
+      runner.launch_spin("Reload")
     end
 
     def run_on_change(paths)

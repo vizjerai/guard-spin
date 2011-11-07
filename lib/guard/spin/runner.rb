@@ -1,3 +1,8 @@
+# Needed for socket_file
+require 'socket'
+require 'tempfile'
+require 'digest/md5'
+
 module Guard
   class Spin
     class Runner
@@ -9,33 +14,35 @@ module Guard
       end
 
       def launch_spin(action)
-        UI.info "#{action.caplitalize}ing Spin", :reset => true
+        UI.info "#{action}ing Spin", :reset => true
         start_spin
       end
 
       def kill_spin
-        UI.info "Killing spin", :reset => true
+        UI.info "Killing Spin", :reset => true
         stop_spin
       end
 
       def run(paths)
-        UI.info "Running #{paths.join(" ")}", :reset => true
-        system(run_command)
+        UI.info "Running [#{paths.join(", ")}]", :reset => true
+        system "spin push #{paths.join(" ")}"
       end
 
       private
 
-      def run_command
-        "spin push #{paths.join(" ")}"
-      end
-
       def start_spin
-        system "spin serve"
+        system "spin serve &"
       end
 
       def stop_spin
-        socket = UNIXSocket.open(socket_file)
-        socket.close
+        file = socket_file
+        if File.exist?(file)
+          socket = UNIXSocket.open(file)
+          if socket
+            socket.close
+          end
+          File.delete(file)
+        end
       end
 
       def socket_file
