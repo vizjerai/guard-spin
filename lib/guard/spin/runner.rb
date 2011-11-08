@@ -15,7 +15,7 @@ module Guard
 
       def launch_spin(action)
         UI.info "#{action}ing Spin", :reset => true
-        start_spin
+        spawn_spin
       end
 
       def kill_spin
@@ -33,25 +33,37 @@ module Guard
 
       private
 
-      def start_spin
-        system "spin serve &"
-      end
-
-      def stop_spin
-        file = socket_file
-        if File.exist?(file)
-          socket = UNIXSocket.open(file)
-          if socket
-            socket.close
-            UI.info "Spin Stopped", :reset => true
-          end
-          File.delete(file)
+      def spawn_spin
+        @spin_pid = fork do
+          exec spin_serve_command
         end
       end
 
-      def socket_file
-        key = Digest::MD5.hexdigest([Dir.pwd, 'spin-gem'].join)
-        [Dir.tmpdir, key].join('/')
+      def stop_spin
+        return unless @spin_pid
+
+        Process.kill(:INT, @spin_pid)
+        sleep 0.5
+
+        begin
+          unless Process.waitpid(@spin_pid, Process::WNOHANG)
+            Process.kill(:KILL, @spin_pid)
+          end
+        rescue Errno::ECHILD
+        end
+        UI.info "Spin Stopped", :reset => true
+      end
+
+      def spin_serve_command
+        cmd_parts = []
+        cmd_parts << "bundle exec" if bundler?
+        cmd_parts << "spin serve"
+
+        cmd_parts.join(' ')
+      end
+
+      def bundler?
+        @bundler ||= File.exist?("#{Dir.pwd}/Gemfile") && options[:bundler] != false
       end
     end
   end
