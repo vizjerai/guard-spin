@@ -39,7 +39,13 @@ Development
 Pull requests are very welcome! Make sure your patches are well tested. Please create a topic branch for every separate change
 you make.
 
-Author
+Authors
 ------
-[Jonathan](https://github.com/jonsgreen)
-[Andrew Assarattanakul](https://github.com/vizjerai)
+
+* [Jonathan](https://github.com/jonsgreen)
+* [Andrew Assarattanakul](https://github.com/vizjerai)
+
+Many Thanks To
+--------------
+
+* [Jesse Storimer](https://github.com/jstorimer)
