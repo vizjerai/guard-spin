@@ -1,6 +1,8 @@
 Guard::Spin
 ===========
 
+Guard::Spin automatically starts and stops [Spin](https://github.com/jstorimer/spin) server.
+
 Install
 -------
 
