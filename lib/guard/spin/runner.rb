@@ -23,7 +23,6 @@ module Guard
       end
 
       def run(paths)
-        UI.info "Running [#{paths.join(", ")}]", :reset => true
         system "spin push #{paths.join(" ")}"
       end
 
