@@ -27,7 +27,11 @@ module Guard
       end
 
       def run_all
-        run(['spec'])
+        if rspec?
+          run(['spec'])
+        elsif test_unit?
+          run(['test'])
+        end
       end
 
       private
