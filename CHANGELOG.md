@@ -1,4 +1,4 @@
-## master
+## 0.1.0 - November 10, 2011
 
 ### New features
 
