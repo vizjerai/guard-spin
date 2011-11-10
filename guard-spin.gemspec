@@ -7,7 +7,7 @@ Gem::Specification.new do |gem|
   gem.platform      = Gem::Platform::RUBY
   gem.authors       = ["jonathangreenberg", "Andrew Assarattanakul"]
   gem.email         = ["greenberg@entryway.net", "assarata@gmail.com"]
-  gem.description   = %q{Guard gem for Spin}
+  gem.description   = %q{Guard::Spin automatically manage Spin server.}
   gem.summary       = %q{Pushes watched files to Spin}
   gem.homepage      = "http://github.com/vizjerai/guard-spin"
 
