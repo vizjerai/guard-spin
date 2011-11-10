@@ -57,12 +57,22 @@ module Guard
         cmd_parts = []
         cmd_parts << "bundle exec" if bundler?
         cmd_parts << "spin serve"
+        
+        cmd_parts << "-Itest" if test_unit?
 
         cmd_parts.join(' ')
       end
 
       def bundler?
         @bundler ||= File.exist?("#{Dir.pwd}/Gemfile") && options[:bundler] != false
+      end
+      
+      def test_unit?
+        @test_unit ||= File.exist?("#{Dir.pwd}/test/test_helper.rb") && options[:test_unit] != false
+      end
+
+      def rspec?
+        @rspec ||= File.exist?("#{Dir.pwd}/spec") && options[:rspec] != false
       end
     end
   end
