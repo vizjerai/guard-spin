@@ -32,6 +32,17 @@ Guardfile
 
 Please read [Guard doc](https://github.com/guard/guard#readme) for more information about the Guardfile DSL.
 
+### Options
+
+Available options:
+
+``` ruby
+:rspec => false          # Don't use RSpec
+:test_unit => false      # Don't use Test::Unit
+:bundler => false        # Don't use "bundle exec"
+:cli => '--time'         # Pass options to spin serve. `spin -h` for more spin options
+```
+
 Development
 -----------
 

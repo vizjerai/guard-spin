@@ -1,3 +1,9 @@
+## 0.1.2 - unreleased
+
+### New features
+
+- Added ability to pass options to spin serve
+
 ## 0.1.1 - November 16, 2011
 
 ### Bug Fixes
