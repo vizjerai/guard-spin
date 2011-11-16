@@ -63,6 +63,11 @@ describe Guard::Spin::Runner do
   end
 
   describe '.kill_spin' do
+    it 'not call Process#kill with no spin_id' do
+      Process.should_not_receive(:kill)
+      subject.kill_spin
+    end
+
     it "calls Process#kill with 'INT, pid'" do
       subject.should_receive(:fork).and_return(123)
       subject.send(:spawn_spin, '')
