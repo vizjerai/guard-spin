@@ -82,6 +82,7 @@ module Guard
       def spin_serve_options
         opt_parts = []
         opt_parts << "-Itest" if test_unit?
+        opt_parts << options[:cli] unless options[:cli].nil?
         opt_parts.join(' ')
       end
 

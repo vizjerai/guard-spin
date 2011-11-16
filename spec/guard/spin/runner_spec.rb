@@ -9,6 +9,21 @@ describe Guard::Spin::Runner do
   end
 
   describe '.launch_spin' do
+    context 'with cli option' do
+      subject { Guard::Spin::Runner.new :cli => '--time' }
+
+      before do
+        subject.should_receive(:test_unit?).any_number_of_times.and_return(false)
+        subject.should_receive(:rspec?).any_number_of_times.and_return(true)
+        subject.should_receive(:bundler?).any_number_of_times.and_return(false)
+      end
+
+      it "launches spin server with cli options" do
+        subject.should_receive(:spawn_spin).with("spin serve", "--time")
+        subject.launch_spin('Start')
+      end
+    end
+
     context 'with Test::Unit only' do
       before do
         subject.should_receive(:test_unit?).any_number_of_times.and_return(true)
