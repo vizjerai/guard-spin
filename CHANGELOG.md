@@ -1,3 +1,10 @@
+## 0.1.1 - November 16, 2011
+
+### Bug Fixes
+
+- Added tests with RSpec.
+- Improved speed of the runner's bundler, test_unit and rspec options if set to false.
+
 ## 0.1.0 - November 10, 2011
 
 ### New features
