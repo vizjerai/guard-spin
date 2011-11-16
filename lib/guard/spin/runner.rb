@@ -50,7 +50,6 @@ module Guard
         return unless @spin_pid
 
         Process.kill(:INT, @spin_pid)
-        sleep 0.5
 
         begin
           unless Process.waitpid(@spin_pid, Process::WNOHANG)

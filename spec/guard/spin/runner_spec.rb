@@ -63,12 +63,43 @@ describe Guard::Spin::Runner do
   end
 
   describe '.kill_spin' do
+    it "calls Process#kill with 'INT, pid'" do
+      subject.should_receive(:fork).and_return(123)
+      subject.send(:spawn_spin, '')
+
+      Process.should_receive(:kill).with(:INT, 123)
+      Process.should_receive(:waitpid).with(123, Process::WNOHANG).and_return(123)
+      Process.should_not_receive(:kill).with(:KILL, 123)
+      subject.kill_spin
+    end
+
+    it "calls Process#kill with 'KILL, pid' if Process.waitpid returns nil" do
+      subject.should_receive(:fork).and_return(123)
+      subject.send(:spawn_spin, '')
+
+      Process.should_receive(:kill).with(:INT, 123)
+      Process.should_receive(:waitpid).with(123, Process::WNOHANG).and_return(nil)
+      Process.should_receive(:kill).with(:KILL, 123)
+      subject.kill_spin
+    end
+
+    it 'calls rescue when Process.waitpid raises Errno::ECHILD' do
+      subject.should_receive(:fork).and_return(123)
+      subject.send(:spawn_spin, '')
+
+      Process.should_receive(:kill).with(:INT, 123)
+      Process.should_receive(:waitpid).with(123, Process::WNOHANG).and_raise(Errno::ECHILD)
+      Process.should_not_receive(:kill).with(:KILL, 123)
+      subject.kill_spin
+    end
   end
 
   describe '.run' do
+    it 'needs to be tested'
   end
 
   describe '.run_all' do
+    it 'needs to be tested'
   end
 
   describe '.bundler?' do
