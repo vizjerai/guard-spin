@@ -100,7 +100,27 @@ describe Guard::Spin::Runner do
   end
 
   describe '.run' do
-    it 'needs to be tested'
+    context 'with Bundler' do
+      before do
+        subject.should_receive(:bundler?).and_return(true)
+      end
+
+      it 'pushes path to spin' do
+        subject.should_receive(:run_command).with('bundle exec spin push spec', '')
+        subject.run(['spec'])
+      end
+    end
+
+    context 'without Bundler' do
+      before do
+        subject.should_receive(:bundler?).and_return(false)
+      end
+
+      it 'pushes path to spin' do
+        subject.should_receive(:run_command).with('spin push spec', '')
+        subject.run(['spec'])
+      end
+    end
   end
 
   describe '.run_all' do

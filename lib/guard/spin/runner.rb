@@ -62,7 +62,7 @@ module Guard
 
       def spin_push_command(paths)
         cmd_parts = []
-        cmd_parts << "bundler exec" if bundler?
+        cmd_parts << "bundle exec" if bundler?
         cmd_parts << "spin push"
         cmd_parts << paths.join(' ')
         cmd_parts.join(' ')
