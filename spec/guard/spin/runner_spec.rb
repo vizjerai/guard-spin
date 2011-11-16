@@ -104,7 +104,32 @@ describe Guard::Spin::Runner do
   end
 
   describe '.run_all' do
-    it 'needs to be tested'
+    context 'with rspec' do
+      it "calls Runner.run with 'spec'" do
+        subject.stub(:rspec?).and_return(true)
+        subject.stub(:test_unit?).and_return(false)
+        subject.should_receive(:run).with(['spec'])
+        subject.run_all
+      end
+    end
+
+    context 'with test_unit' do
+      it "calls Runner.run with \"['test']\"" do
+        subject.stub(:rspec?).and_return(false)
+        subject.stub(:test_unit?).and_return(true)
+        subject.should_receive(:run).with(['test'])
+        subject.run_all
+      end
+    end
+
+    context 'with neither' do
+      it 'not call Runner.run' do
+        subject.stub(:rspec?).and_return(false)
+        subject.stub(:test_unit?).and_return(false)
+        subject.should_not_receive(:run)
+        subject.run_all
+      end
+    end
   end
 
   describe '.bundler?' do
