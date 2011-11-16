@@ -1,6 +1,7 @@
 *.gem
 *.rbc
 .bundle
+.rspec
 .rvmrc
 Gemfile.lock
 pkg/*
