@@ -14,6 +14,9 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'guard'
   gem.add_dependency 'spin'
 
+  gem.add_development_dependency 'bundler', '>= 1.0'
+  gem.add_development_dependency 'rspec', '>= 2.0'
+
   gem.files         = Dir.glob('{lib}/**/*') + %w[LICENSE README.md]
   gem.require_path  = 'lib'
 end
