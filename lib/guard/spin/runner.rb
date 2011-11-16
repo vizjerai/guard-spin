@@ -37,7 +37,7 @@ module Guard
       private
 
       def run_command(cmd, options = '')
-        exec cmd, options
+        exec "#{cmd} #{options}"
       end
 
       def spawn_spin(cmd, options = '')
