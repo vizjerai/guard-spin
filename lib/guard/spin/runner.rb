@@ -15,7 +15,7 @@ module Guard
 
       def launch_spin(action)
         UI.info "#{action}ing Spin", :reset => true
-        spawn_spin
+        spawn_spin spin_serve_command, spin_serve_options
       end
 
       def kill_spin
@@ -23,7 +23,7 @@ module Guard
       end
 
       def run(paths)
-        system "spin push #{paths.join(" ")}"
+        run_command spin_push_command(paths), spin_push_options
       end
 
       def run_all
@@ -36,9 +36,13 @@ module Guard
 
       private
 
-      def spawn_spin
+      def run_command(cmd, options = '')
+        exec cmd, options
+      end
+
+      def spawn_spin(cmd, options = '')
         @spin_pid = fork do
-          exec spin_serve_command
+          run_command(cmd, options)
         end
       end
 
@@ -57,26 +61,41 @@ module Guard
         UI.info "Spin Stopped", :reset => true
       end
 
+      def spin_push_command(paths)
+        cmd_parts = []
+        cmd_parts << "bundler exec" if bundler?
+        cmd_parts << "spin push"
+        cmd_parts << paths.join(' ')
+        cmd_parts.join(' ')
+      end
+
+      def spin_push_options
+        ''
+      end
+
       def spin_serve_command
         cmd_parts = []
         cmd_parts << "bundle exec" if bundler?
         cmd_parts << "spin serve"
-        
-        cmd_parts << "-Itest" if test_unit?
-
         cmd_parts.join(' ')
       end
 
-      def bundler?
-        @bundler ||= File.exist?("#{Dir.pwd}/Gemfile") && options[:bundler] != false
+      def spin_serve_options
+        opt_parts = []
+        opt_parts << "-Itest" if test_unit?
+        opt_parts.join(' ')
       end
-      
+
+      def bundler?
+        @bundler ||= options[:bundler] != false && File.exist?("#{Dir.pwd}/Gemfile")
+      end
+
       def test_unit?
-        @test_unit ||= File.exist?("#{Dir.pwd}/test/test_helper.rb") && options[:test_unit] != false
+        @test_unit ||= options[:test_unit] != false && File.exist?("#{Dir.pwd}/test/test_helper.rb")
       end
 
       def rspec?
-        @rspec ||= File.exist?("#{Dir.pwd}/spec") && options[:rspec] != false
+        @rspec ||= options[:rspec] != false && File.exist?("#{Dir.pwd}/spec")
       end
     end
   end
