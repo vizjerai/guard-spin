@@ -37,12 +37,12 @@ module Guard
       private
 
       def run_command(cmd, options = '')
-        exec "#{cmd} #{options}"
+        system "#{cmd} #{options}"
       end
 
       def spawn_spin(cmd, options = '')
         @spin_pid = fork do
-          run_command(cmd, options)
+          exec "#{cmd} #{options}"
         end
       end
 
