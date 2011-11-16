@@ -1,4 +1,4 @@
-## 0.1.2 - unreleased
+## 0.1.2 - November 16, 2011
 
 ### New features
 
