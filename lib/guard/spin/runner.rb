@@ -30,7 +30,7 @@ module Guard
         if rspec?
           run(['spec'])
         elsif test_unit?
-          run(['test'])
+          run(Dir['test/**/*_test.rb']+Dir['test/**/test_*.rb'])
         end
       end
 
