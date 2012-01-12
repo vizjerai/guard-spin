@@ -1,20 +1,20 @@
 ## 0.1.3 - January 12, 2011
 
 ### Bug Fix
- - Changed Runner#run_all to run each test file under 'test' directory ([@bhb](https://github.com/bhb))
+ - [#4](https://github.com/vizjerai/guard-spin/issues/4): Changed Runner#run_all to run each test file under 'test' directory ([@bhb](https://github.com/bhb))
 
 ## 0.1.2 - November 16, 2011
 
 ### New features
 
-- Added ability to pass options to spin serve
+- Added ability to pass options to spin serve ([@vizjerai](https://github.com/vizjerai))
 
 ## 0.1.1 - November 16, 2011
 
 ### Bug Fixes
 
-- Added tests with RSpec.
-- Improved speed of the runner's bundler, test_unit and rspec options if set to false.
+- Added tests with RSpec. ([@vizjerai](https://github.com/vizjerai))
+- Improved speed of the runner's bundler, test_unit and rspec options if set to false. ([@vizjerai](https://github.com/vizjerai))
 
 ## 0.1.0 - November 10, 2011
 
