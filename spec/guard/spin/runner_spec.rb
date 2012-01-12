@@ -149,10 +149,15 @@ describe Guard::Spin::Runner do
     end
 
     context 'with test_unit' do
-      it "calls Runner.run with \"['test']\"" do
+      before do
+        Dir.should_receive(:[]).with('test/**/*_test.rb').once.and_return(%w{test/unit/foo_test.rb test/functional/bar_test.rb})
+        Dir.should_receive(:[]).with('test/**/test_*.rb').once.and_return(['test/unit/test_baz.rb'])
+      end
+      
+      it "calls Runner.run with each test file" do
         subject.stub(:rspec?).and_return(false)
         subject.stub(:test_unit?).and_return(true)
-        subject.should_receive(:run).with(['test'])
+        subject.should_receive(:run).with(%w{test/unit/foo_test.rb test/functional/bar_test.rb test/unit/test_baz.rb})
         subject.run_all
       end
     end
