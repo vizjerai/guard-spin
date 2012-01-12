@@ -1,3 +1,8 @@
+## 0.1.3 - January 12, 2011
+
+### Bug Fix
+ - Changed Runner#run_all to run each test file under 'test' directory ([@bhb](https://github.com/bhb))
+
 ## 0.1.2 - November 16, 2011
 
 ### New features
