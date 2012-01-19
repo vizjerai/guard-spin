@@ -26,5 +26,5 @@
 
 ### New features
 
-- [#1](https://github.com/vizjerai/guard-spin/issue/1): Spawn spin serve with a fork+exec. ([@jstorimer](https://github.com/jstorimer))
+- [#1](https://github.com/vizjerai/guard-spin/issues/1): Spawn spin serve with a fork+exec. ([@jstorimer](https://github.com/jstorimer))
 - Added basic support for RSpec2 ([@vizjerai](https://github.com/vizjerai))
