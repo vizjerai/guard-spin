@@ -1,3 +1,8 @@
+## 0.1.4 - January 31, 2011
+
+### Bug Fix
+ - [#5](https://github.com/vizjerai/guard-spin/issues/5): Changed guardfile to look for files that end with the file extensions ([@danoph](https://github.com/danoph))
+
 ## 0.1.3 - January 12, 2011
 
 ### Bug Fix
