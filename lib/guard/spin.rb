@@ -26,7 +26,7 @@ module Guard
       runner.run_all
     end
 
-    def run_on_change(paths)
+    def run_on_changes(paths)
       runner.run(paths)
     end
 
