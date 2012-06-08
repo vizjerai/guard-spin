@@ -29,6 +29,8 @@ module Guard
     def run_on_changes(paths)
       runner.run(paths)
     end
+    # for guard 1.0.x and earlier
+    alias :run_on_change :run_on_changes
 
     def stop
       runner.kill_spin

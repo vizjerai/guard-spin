@@ -11,7 +11,7 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Pushes watched files to Spin}
   gem.homepage      = "http://github.com/vizjerai/guard-spin"
 
-  gem.add_dependency 'guard', '>= 1.1.0'
+  gem.add_dependency 'guard'
   gem.add_dependency 'spin'
 
   gem.add_development_dependency 'bundler', '>= 1.0'

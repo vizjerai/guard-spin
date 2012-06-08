@@ -32,6 +32,13 @@ describe Guard::Spin do
     end
   end
 
+  describe '.run_on_change (for guard 1.0.x and earlier)' do
+    it 'calls Runner.run with file name' do
+      subject.runner.should_receive(:run).with('file_name.rb')
+      subject.run_on_change('file_name.rb')
+    end
+  end
+
   describe '.run_on_changes' do
     it "calls Runner.run with file name" do
       subject.runner.should_receive(:run).with('file_name.rb')
