@@ -2,6 +2,7 @@
 *.rbc
 .bundle
 .rspec
+.ruby-version
 .rvmrc
 Gemfile.lock
 pkg/*
