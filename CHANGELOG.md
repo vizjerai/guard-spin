@@ -1,4 +1,4 @@
-## Unreleased
+## 0.2.0 - June 8, 2012
 
 ### New features
  - [#7](https://github.com/vizjerai/guard-spin/issues/7): Upgraded to guard 1.1.x ([@tysontate](https://github.com/tysontate))
