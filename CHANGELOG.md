@@ -6,12 +6,12 @@
 ### Bug Fix
  - Allow guard 1.0.x to work again. ([@vizjerai](https://github.com/vizjerai))
 
-## 0.1.4 - January 31, 2011
+## 0.1.4 - January 31, 2012
 
 ### Bug Fix
  - [#5](https://github.com/vizjerai/guard-spin/issues/5): Changed guardfile to look for files that end with the file extensions ([@danoph](https://github.com/danoph))
 
-## 0.1.3 - January 12, 2011
+## 0.1.3 - January 12, 2012
 
 ### Bug Fix
  - [#4](https://github.com/vizjerai/guard-spin/issues/4): Changed Runner#run_all to run each test file under 'test' directory ([@bhb](https://github.com/bhb))
