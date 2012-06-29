@@ -41,6 +41,7 @@ Available options:
 :test_unit => false      # Don't use Test::Unit
 :bundler => false        # Don't use "bundle exec"
 :cli => '--time'         # Pass options to spin serve. `spin -h` for more spin options
+:run_all => true         # Run all tests when hitting enter in guard
 ```
 
 Development
