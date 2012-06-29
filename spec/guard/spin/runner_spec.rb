@@ -1,10 +1,18 @@
 require 'spec_helper'
 
 describe Guard::Spin::Runner do
+  let(:runner) { Guard::Spin::Runner.new }
 
   describe '#initialize' do
-    it 'default options are {}' do
-      subject.options.should == {}
+    subject { runner.options }
+
+    context 'with default options' do
+      it { should == {:run_all => true} }
+    end
+
+    context 'with run_all => false' do
+      let(:runner) { Guard::Spin::Runner.new :run_all => false }
+      it { should == {:run_all => false} }
     end
   end
 
@@ -168,6 +176,15 @@ describe Guard::Spin::Runner do
         subject.stub(:test_unit?).and_return(false)
         subject.should_not_receive(:run)
         subject.run_all
+      end
+    end
+
+    context 'with :run_all set to false' do
+      let(:runner) { Guard::Spin::Runner.new :run_all => false }
+      it 'not run all specs' do
+        runner.stub(:rspec?).and_return(true)
+        runner.should_not_receive(:run)
+        runner.run_all
       end
     end
   end

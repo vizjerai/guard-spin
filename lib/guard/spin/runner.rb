@@ -9,7 +9,7 @@ module Guard
       attr_reader :options
 
       def initialize(options = {})
-        @options = options
+        @options = {:run_all => true}.merge(options)
         UI.info "Guard::Spin Initialized"
       end
 
@@ -27,6 +27,7 @@ module Guard
       end
 
       def run_all
+        return unless options[:run_all]
         if rspec?
           run(['spec'])
         elsif test_unit?
