@@ -1,4 +1,4 @@
-## Unreleased
+## 0.3.0 - June 29, 2012
 
 ### New features
  - Not run all tests by default when hitting enter by setting :run_all option to false. ([@vizjerai](https://github.com/vizjerai))
