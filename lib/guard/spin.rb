@@ -36,5 +36,12 @@ module Guard
       runner.kill_spin
     end
 
+    def respond_to?(name)
+      if name == :run_on_change
+        false
+      else
+        super
+      end
+    end
   end
 end
