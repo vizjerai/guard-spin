@@ -1,7 +1,7 @@
 require 'spec_helper'
 
-describe Guard::Spin::Runner do
-  let(:runner) { Guard::Spin::Runner.new }
+describe Guard::Zeus::Runner do
+  let(:runner) { Guard::Zeus::Runner.new }
 
   describe '#initialize' do
     subject { runner.options }
@@ -11,14 +11,14 @@ describe Guard::Spin::Runner do
     end
 
     context 'with run_all => false' do
-      let(:runner) { Guard::Spin::Runner.new :run_all => false }
+      let(:runner) { Guard::Zeus::Runner.new :run_all => false }
       it { should == {:run_all => false} }
     end
   end
 
-  describe '.launch_spin' do
+  describe '.launch_zeus' do
     context 'with cli option' do
-      subject { Guard::Spin::Runner.new :cli => '--time' }
+      subject { Guard::Zeus::Runner.new :cli => '--time' }
 
       before do
         subject.should_receive(:test_unit?).any_number_of_times.and_return(false)
@@ -26,9 +26,9 @@ describe Guard::Spin::Runner do
         subject.should_receive(:bundler?).any_number_of_times.and_return(false)
       end
 
-      it "launches spin server with cli options" do
-        subject.should_receive(:spawn_spin).with("spin serve", "--time")
-        subject.launch_spin('Start')
+      it "launches zeus start with cli options" do
+        subject.should_receive(:spawn_zeus).with("zeus start", "--time")
+        subject.launch_zeus('Start')
       end
     end
 
@@ -39,9 +39,9 @@ describe Guard::Spin::Runner do
         subject.should_receive(:bundler?).any_number_of_times.and_return(false)
       end
 
-      it "launches Spin server for Test::Unit" do
-        subject.should_receive(:spawn_spin).with("spin serve", "-Itest")
-        subject.launch_spin('Start')
+      it "launches zeus start for Test::Unit" do
+        subject.should_receive(:spawn_zeus).with("zeus start", "")
+        subject.launch_zeus('Start')
       end
     end
 
@@ -52,9 +52,9 @@ describe Guard::Spin::Runner do
         subject.should_receive(:bundler?).any_number_of_times.and_return(true)
       end
 
-      it "launches Spin server for Test::Unit with 'bundle exec'" do
-        subject.should_receive(:spawn_spin).with("bundle exec spin serve", "-Itest")
-        subject.launch_spin('Start')
+      it "launches zeus start for Test::Unit with 'bundle exec'" do
+        subject.should_receive(:spawn_zeus).with("bundle exec zeus start", "")
+        subject.launch_zeus('Start')
       end
     end
 
@@ -65,9 +65,9 @@ describe Guard::Spin::Runner do
         subject.should_receive(:bundler?).any_number_of_times.and_return(false)
       end
 
-      it "launches Spin server for RSpec" do
-        subject.should_receive(:spawn_spin).with("spin serve", "")
-        subject.launch_spin('Start')
+      it "launches zeus start for RSpec" do
+        subject.should_receive(:spawn_zeus).with("zeus start", "")
+        subject.launch_zeus('Start')
       end
     end
 
@@ -78,47 +78,47 @@ describe Guard::Spin::Runner do
         subject.should_receive(:bundler?).any_number_of_times.and_return(true)
       end
 
-      it "launches Spin server for RSpec with 'bundle exec'" do
-        subject.should_receive(:spawn_spin).with("bundle exec spin serve", "")
-        subject.launch_spin('Start')
+      it "launches zeus start for RSpec with 'bundle exec'" do
+        subject.should_receive(:spawn_zeus).with("bundle exec zeus start", "")
+        subject.launch_zeus('Start')
       end
     end
   end
 
-  describe '.kill_spin' do
-    it 'not call Process#kill with no spin_id' do
+  describe '.kill_zeus' do
+    it 'not call Process#kill with no zeus_id' do
       Process.should_not_receive(:kill)
-      subject.kill_spin
+      subject.kill_zeus
     end
 
     it "calls Process#kill with 'INT, pid'" do
       subject.should_receive(:fork).and_return(123)
-      subject.send(:spawn_spin, '')
+      subject.send(:spawn_zeus, '')
 
       Process.should_receive(:kill).with(:INT, 123)
       Process.should_receive(:waitpid).with(123, Process::WNOHANG).and_return(123)
       Process.should_not_receive(:kill).with(:KILL, 123)
-      subject.kill_spin
+      subject.kill_zeus
     end
 
     it "calls Process#kill with 'KILL, pid' if Process.waitpid returns nil" do
       subject.should_receive(:fork).and_return(123)
-      subject.send(:spawn_spin, '')
+      subject.send(:spawn_zeus, '')
 
       Process.should_receive(:kill).with(:INT, 123)
       Process.should_receive(:waitpid).with(123, Process::WNOHANG).and_return(nil)
       Process.should_receive(:kill).with(:KILL, 123)
-      subject.kill_spin
+      subject.kill_zeus
     end
 
     it 'calls rescue when Process.waitpid raises Errno::ECHILD' do
       subject.should_receive(:fork).and_return(123)
-      subject.send(:spawn_spin, '')
+      subject.send(:spawn_zeus, '')
 
       Process.should_receive(:kill).with(:INT, 123)
       Process.should_receive(:waitpid).with(123, Process::WNOHANG).and_raise(Errno::ECHILD)
       Process.should_not_receive(:kill).with(:KILL, 123)
-      subject.kill_spin
+      subject.kill_zeus
     end
   end
 
@@ -128,9 +128,9 @@ describe Guard::Spin::Runner do
         subject.should_receive(:bundler?).and_return(true)
       end
 
-      it 'pushes path to spin' do
-        subject.should_receive(:run_command).with('bundle exec spin push spec', '')
-        subject.run(['spec'])
+      it 'pushes path to zeus' do
+        subject.should_receive(:run_command).with('bundle exec zeus test abacus', '')
+        subject.run(['abacus'])
       end
     end
 
@@ -139,9 +139,9 @@ describe Guard::Spin::Runner do
         subject.should_receive(:bundler?).and_return(false)
       end
 
-      it 'pushes path to spin' do
-        subject.should_receive(:run_command).with('spin push spec', '')
-        subject.run(['spec'])
+      it 'pushes path to zeus' do
+        subject.should_receive(:run_command).with('zeus test abacus', '')
+        subject.run(['abacus'])
       end
     end
   end
@@ -151,7 +151,7 @@ describe Guard::Spin::Runner do
       it "calls Runner.run with 'spec'" do
         subject.stub(:rspec?).and_return(true)
         subject.stub(:test_unit?).and_return(false)
-        subject.should_receive(:run).with(['spec'])
+        subject.should_receive(:run).with(['rspec'])
         subject.run_all
       end
     end
@@ -180,7 +180,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with :run_all set to false' do
-      let(:runner) { Guard::Spin::Runner.new :run_all => false }
+      let(:runner) { Guard::Zeus::Runner.new :run_all => false }
       it 'not run all specs' do
         runner.stub(:rspec?).and_return(true)
         runner.should_not_receive(:run)
@@ -195,7 +195,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with no bundler option' do
-      subject { Guard::Spin::Runner.new }
+      subject { Guard::Zeus::Runner.new }
 
       context 'with Gemfile' do
         before do
@@ -219,7 +219,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with :bundler => false' do
-      subject { Guard::Spin::Runner.new :bundler => false }
+      subject { Guard::Zeus::Runner.new :bundler => false }
 
       context 'with Gemfile' do
         before do
@@ -243,7 +243,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with :bundler => true' do
-      subject { Guard::Spin::Runner.new :bundler => true }
+      subject { Guard::Zeus::Runner.new :bundler => true }
 
       context 'with Gemfile' do
         before do
@@ -273,7 +273,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with no test_unit option' do
-      subject { Guard::Spin::Runner.new }
+      subject { Guard::Zeus::Runner.new }
 
       context 'with Gemfile' do
         before do
@@ -297,7 +297,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with :test_unit => false' do
-      subject { Guard::Spin::Runner.new :test_unit => false }
+      subject { Guard::Zeus::Runner.new :test_unit => false }
 
       context 'with Gemfile' do
         before do
@@ -321,7 +321,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with :test_unit => true' do
-      subject { Guard::Spin::Runner.new :test_unit => true }
+      subject { Guard::Zeus::Runner.new :test_unit => true }
 
       context 'with Gemfile' do
         before do
@@ -351,7 +351,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with no rspec option' do
-      subject { Guard::Spin::Runner.new }
+      subject { Guard::Zeus::Runner.new }
 
       context 'with Gemfile' do
         before do
@@ -375,7 +375,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with :rspec => false' do
-      subject { Guard::Spin::Runner.new :rspec => false }
+      subject { Guard::Zeus::Runner.new :rspec => false }
 
       context 'with Gemfile' do
         before do
@@ -399,7 +399,7 @@ describe Guard::Spin::Runner do
     end
 
     context 'with :rspec => true' do
-      subject { Guard::Spin::Runner.new :rspec => true }
+      subject { Guard::Zeus::Runner.new :rspec => true }
 
       context 'with Gemfile' do
         before do

@@ -1,4 +1,4 @@
-guard 'spin' do
+guard 'zeus' do
   # uses the .rspec file
   # --colour --fail-fast --format documentation --tag ~slow
   watch(%r{^spec/.+_spec\.rb$})

@@ -1,26 +1,26 @@
 require 'spec_helper'
 
-describe Guard::Spin do
+describe Guard::Zeus do
 
   describe '#initialize' do
     it "instantiates Runner with given options" do
-      Guard::Spin::Runner.should_receive(:new).with(:bundler => false)
-      Guard::Spin.new [], { :bundler => false }
+      Guard::Zeus::Runner.should_receive(:new).with(:bundler => false)
+      Guard::Zeus.new [], { :bundler => false }
     end
   end
 
   describe '.start' do
-    it "calls Runner.kill_spin and Runner.launch_spin with 'Start'" do
-      subject.runner.should_receive(:kill_spin)
-      subject.runner.should_receive(:launch_spin).with('Start')
+    it "calls Runner.kill_zeus and Runner.launch_zeus with 'Start'" do
+      subject.runner.should_receive(:kill_zeus)
+      subject.runner.should_receive(:launch_zeus).with('Start')
       subject.start
     end
   end
 
   describe '.reload' do
-    it "calls Runner.kill_spin and Runner.launch_spin with 'Reload'" do
-      subject.runner.should_receive(:kill_spin)
-      subject.runner.should_receive(:launch_spin).with('Reload')
+    it "calls Runner.kill_zeus and Runner.launch_zeus with 'Reload'" do
+      subject.runner.should_receive(:kill_zeus)
+      subject.runner.should_receive(:launch_zeus).with('Reload')
       subject.reload
     end
   end
@@ -52,8 +52,8 @@ describe Guard::Spin do
   end
 
   describe '.stop' do
-    it 'calls Runner.kill_spin' do
-      subject.runner.should_receive(:kill_spin)
+    it 'calls Runner.kill_zeus' do
+      subject.runner.should_receive(:kill_zeus)
       subject.stop
     end
   end

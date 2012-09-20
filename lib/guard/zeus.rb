@@ -2,9 +2,9 @@ require 'guard'
 require 'guard/guard'
 
 module Guard
-  class Spin < Guard
+  class Zeus < Guard
 
-    autoload :Runner, 'guard/spin/runner'
+    autoload :Runner, 'guard/zeus/runner'
     attr_accessor :runner
 
     def initialize(watchers=[], options={})
@@ -13,13 +13,13 @@ module Guard
     end
 
     def start
-      runner.kill_spin
-      runner.launch_spin("Start")
+      runner.kill_zeus
+      runner.launch_zeus("Start")
     end
 
     def reload
-      runner.kill_spin
-      runner.launch_spin("Reload")
+      runner.kill_zeus
+      runner.launch_zeus("Reload")
     end
 
     def run_all
@@ -33,7 +33,7 @@ module Guard
     alias :run_on_change :run_on_changes
 
     def stop
-      runner.kill_spin
+      runner.kill_zeus
     end
 
   end
