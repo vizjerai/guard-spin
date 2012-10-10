@@ -69,3 +69,10 @@ Many Thanks To
 --------------
 
 * [Jesse Storimer](https://github.com/jstorimer)
+
+Alternatives
+------------
+
+* [guard/rspec](https://github.com/guard/guard-rspec) has recently picked up Zeus support. You may wish to see if this fits your needs.
+* [aceofsales/guard-zeus-client](https://github.com/aceofsales/guard-zeus-client) is very similar to this version.
+
