@@ -23,7 +23,8 @@ module Guard
       end
 
       def run(paths)
-        run_command spin_push_command(paths), spin_push_options
+        paths_opts = options[:spec_paths] ? [options[:spec_paths]].flatten : paths
+        run_command spin_push_command(paths_opts), spin_push_options
       end
 
       def run_all
