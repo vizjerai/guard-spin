@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fileutils'
 
 describe Guard::Zeus::Runner do
   let(:runner) { Guard::Zeus::Runner.new }
@@ -120,6 +121,21 @@ describe Guard::Zeus::Runner do
       Process.should_not_receive(:kill).with(:KILL, 123)
       subject.kill_zeus
     end
+
+    it "deletes the zeus socket file while stopping" do
+      socket_file = subject.send(:sockfile)
+      FileUtils.touch(socket_file)
+      subject.should_receive(:fork).and_return(123)
+      subject.send(:spawn_zeus, '')
+      expect(File.exist?(socket_file)).to be_true
+
+      Process.should_receive(:kill).with(:INT, 123)
+      Process.should_receive(:waitpid).with(123, Process::WNOHANG).and_raise(Errno::ECHILD)
+      Process.should_not_receive(:kill).with(:KILL, 123)
+      subject.kill_zeus
+      expect(File.exist?(socket_file)).not_to be_true
+    end
+
   end
 
   describe '.run' do
