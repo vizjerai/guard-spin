@@ -3,6 +3,9 @@ Guard::Zeus
 
 Guard::Zeus automatically starts and stops [Zeus](https://github.com/burke/zeus).
 
+[![Build Status](https://travis-ci.org/qnm/guard-zeus.png?branch=master)](https://travis-ci.org/qnm/guard-zeus)
+[![Code Climate](https://codeclimate.com/github/qnm/guard-zeus.png)](https://codeclimate.com/github/qnm/guard-zeus)
+
 Install
 -------
 
