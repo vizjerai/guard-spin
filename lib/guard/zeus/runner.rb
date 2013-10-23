@@ -41,7 +41,6 @@ module Guard
           File.join(Dir.pwd, ".zeus.sock")
       end
 
-
       def run_command(cmd, options = '')
         system "#{cmd} #{options}"
       end
