@@ -37,6 +37,10 @@ module Guard
 
       private
 
+      def sockfile
+          File.join(Dir.pwd, ".zeus.sock")
+      end
+
       def run_command(cmd, options = '')
         system "#{cmd} #{options}"
       end
@@ -58,6 +62,7 @@ module Guard
           end
         rescue Errno::ECHILD
         end
+        File.delete(sockfile) if File.exist? sockfile
         UI.info "Zeus Stopped", :reset => true
       end
 
