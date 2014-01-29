@@ -1,5 +1,5 @@
 require 'rspec'
-require 'guard/spin'
+require 'guard/zeus'
 ENV['GUARD_ENV'] = 'test'
 
 RSpec.configure do |config|

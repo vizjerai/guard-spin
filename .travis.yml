@@ -1,0 +1,13 @@
+language: ruby
+rvm:
+- 1.9.3
+before_install: gem install bundler
+script:
+- bundle exec rspec --no-drb --format progress spec/
+deploy:
+  provider: rubygems
+  api_key:
+    secure: IiMz64fFryLhw23uEv2GlluTufOnO+PGJqeqx7aqvHZO2bThpiLxP7Dv7I9QN5u6546/BiWEPum9+mh5t8FfIVR5dKus65EzZs+gqvB4mUBKDCx7soaTRJ6dshrHrV+vEgwZyWk07HuXA/IlcTx/qNHzQXeTsCXlt66DJZDL5is=
+  gem: guard-zeus
+  on:
+    repo: qnm/guard-zeus
