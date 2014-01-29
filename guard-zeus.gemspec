@@ -12,11 +12,11 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Pushes watched files to Zeus}
   gem.homepage      = "http://github.com/qnm/guard-zeus"
 
-  gem.add_dependency 'guard'
-  gem.add_dependency 'zeus'
+  gem.add_runtime_dependency 'guard', '~> 1.0'
+  gem.add_runtime_dependency 'zeus', '~> 0'
 
-  gem.add_development_dependency 'bundler', '>= 1.0'
-  gem.add_development_dependency 'rspec', '>= 2.0'
+  gem.add_development_dependency 'bundler', '~> 1.0'
+  gem.add_development_dependency 'rspec', '~> 2.0'
 
   gem.files         = Dir.glob('{lib}/**/*') + %w[LICENSE README.md]
   gem.require_path  = 'lib'
