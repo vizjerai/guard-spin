@@ -75,6 +75,7 @@ module Guard
 
       def spin_serve_command
         cmd_parts = []
+        cmd_parts << options[:env] unless options[:env].nil?
         cmd_parts << "bundle exec" if bundler?
         cmd_parts << "spin serve"
         cmd_parts.join(' ')
