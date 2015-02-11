@@ -5,7 +5,7 @@ describe Guard::Spin do
   describe '#initialize' do
     it "instantiates Runner with given options" do
       Guard::Spin::Runner.should_receive(:new).with(:bundler => false)
-      Guard::Spin.new [], { :bundler => false }
+      Guard::Spin.new({ :bundler => false })
     end
   end
 
