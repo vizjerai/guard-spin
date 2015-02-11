@@ -11,11 +11,12 @@ Gem::Specification.new do |gem|
   gem.summary       = %q{Pushes watched files to Spin}
   gem.homepage      = "http://github.com/vizjerai/guard-spin"
 
-  gem.add_dependency 'guard'
+  gem.add_dependency 'guard', '~> 2.8'
+  gem.add_dependency 'guard-compat', '~> 1.0'
   gem.add_dependency 'spin'
 
   gem.add_development_dependency 'bundler', '>= 1.0'
-  gem.add_development_dependency 'rspec', '>= 2.0'
+  gem.add_development_dependency 'rspec', '>= 3.2'
 
   gem.files         = Dir.glob('{lib}/**/*') + %w[LICENSE README.md]
   gem.require_path  = 'lib'
