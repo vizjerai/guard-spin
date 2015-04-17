@@ -1,13 +1,13 @@
 require 'guard'
-require 'guard/guard'
+require 'guard/plugin'
 
 module Guard
-  class Spin < Guard
+  class Spin < Plugin
 
     autoload :Runner, 'guard/spin/runner'
     attr_accessor :runner
 
-    def initialize(watchers=[], options={})
+    def initialize(options={})
       super
       @runner = Runner.new(options)
     end
